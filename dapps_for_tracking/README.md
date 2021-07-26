@@ -4,34 +4,8 @@ This repository containts an Ethereum DApp that demonstrates a Supply Chain flow
 
 
 
-  Deploying Migrations...
-  ... 0x0075006132d9bd7d5414c1a4116ba30db7b47928c5d003bd46b7702fd17b1a70
-  Migrations: 0x1116757c823ffa8a68acc50c0b9002ca2f370ac0
-Saving successful migration to network...
-  ... 0xc394b5f96f469b1b93b5ad60c600cd205c22db9b039346257d8cbf388a7fc88e
-Saving artifacts...
-Running migration: 2_deploy_contracts.js
-  Deploying FarmerRole...
-  ... 0x01b7af9f8662143269037af894eac3d4f0bb495198b48182dbb18ce1551890b6
-  FarmerRole: 0xd3f2c35f276384b9a19a831bd5aeca8ac2351c07
-  Deploying DistributorRole...
-  ... 0x467c3cbf51d05b4e63c028dc50d621fe102b4ec9ed6ee5e13c34e831318881d4
-  DistributorRole: 0xa9f5faa965a5c8be52f1de74e7334766f64f2cf6
-  Deploying RetailerRole...
-  ... 0xd9d3e3c5bb5e6a6d7123c90d4c6b45261bc87d36ca21c25b98d4af9d266cbb8b
-  RetailerRole: 0xf2eb4c09ee69742d1cee4f11a599bd0a449d66ef
-  Deploying ConsumerRole...
-  ... 0x005d3122a80bc14e8ccf74ff104ac26bdd8d5863f80de3fde00c087bcba658cd
-  ConsumerRole: 0xf785cbcae0823ca91eae6e1bb8d6ba65f8c2d069
-  Deploying SupplyChain...
-  ... 0xf1fa4c5061f892a5bbf67308e615c3660fe911b70679cb46a7b134026bf548c4
-  SupplyChain: 0x9802d06b95031cd0a570fccf4930510b9be9b429
-Saving successful migration to network...
-  ... 0x07abd89fbdd8e0b2006337e2a5fd4d74ca885c6c49d77e747cc1746702bd990a
-Saving artifacts...
 
-
-## Design
+## Designing
 
 
 ### Activity Diagram
@@ -164,7 +138,35 @@ truffle migrate
 
 Your terminal should look something like this:
 
-![truffle test](images/truffle_migrate.png)
+```
+  Deploying Migrations...
+  ... 0x0075006132d9bd7d5414c1a4116ba30db7b47928c5d003bd46b7702fd17b1a70
+  Migrations: 0x1116757c823ffa8a68acc50c0b9002ca2f370ac0
+Saving successful migration to network...
+  ... 0xc394b5f96f469b1b93b5ad60c600cd205c22db9b039346257d8cbf388a7fc88e
+Saving artifacts...
+Running migration: 2_deploy_contracts.js
+  Deploying FarmerRole...
+  ... 0x01b7af9f8662143269037af894eac3d4f0bb495198b48182dbb18ce1551890b6
+  FarmerRole: 0xd3f2c35f276384b9a19a831bd5aeca8ac2351c07
+  Deploying DistributorRole...
+  ... 0x467c3cbf51d05b4e63c028dc50d621fe102b4ec9ed6ee5e13c34e831318881d4
+  DistributorRole: 0xa9f5faa965a5c8be52f1de74e7334766f64f2cf6
+  Deploying RetailerRole...
+  ... 0xd9d3e3c5bb5e6a6d7123c90d4c6b45261bc87d36ca21c25b98d4af9d266cbb8b
+  RetailerRole: 0xf2eb4c09ee69742d1cee4f11a599bd0a449d66ef
+  Deploying ConsumerRole...
+  ... 0x005d3122a80bc14e8ccf74ff104ac26bdd8d5863f80de3fde00c087bcba658cd
+  ConsumerRole: 0xf785cbcae0823ca91eae6e1bb8d6ba65f8c2d069
+  Deploying SupplyChain...
+  ... 0xf1fa4c5061f892a5bbf67308e615c3660fe911b70679cb46a7b134026bf548c4
+  SupplyChain: 0x9802d06b95031cd0a570fccf4930510b9be9b429
+Saving successful migration to network...
+  ... 0x07abd89fbdd8e0b2006337e2a5fd4d74ca885c6c49d77e747cc1746702bd990a
+Saving artifacts...
+
+```
+
 
 Test smart contracts:
 
@@ -172,9 +174,10 @@ Test smart contracts:
 truffle test
 ```
 
-All 10 tests should pass.
 
-![truffle test](images/truffle_test.png)
+<!-- All 10 tests should pass.
+
+![truffle test](images/truffle_test.png) -->
 
 In a separate terminal window, launch the DApp:
 
