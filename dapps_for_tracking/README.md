@@ -2,17 +2,7 @@
 
 This repository containts an Ethereum DApp that demonstrates a Supply Chain flow between a Seller and Buyer. The user story is similar to any commonly used supply chain process. A Seller can add items to the inventory system stored in the blockchain. A Buyer can purchase such items from the inventory system. Additionally a Seller can mark an item as Shipped, and similarly a Buyer can mark an item as Received.
 
-The DApp User Interface when running should look like...
 
-![truffle test](images/ftc_product_overview.png)
-
-![truffle test](images/ftc_farm_details.png)
-
-![truffle test](images/ftc_product_details.png)
-
-![truffle test](images/ftc_transaction_history.png)
-
-![truffle test](images/ftc_dep.png)
 
   Deploying Migrations...
   ... 0x0075006132d9bd7d5414c1a4116ba30db7b47928c5d003bd46b7702fd17b1a70
@@ -73,11 +63,16 @@ Shows the possible states the transition from one state to another.
 
 
 
-## Getting Started
+## Versions Used
 
 
+node version number: v12.14.1
 
+Truffle version number:  v4.1.14
 
+Solidity: v0.4.24
+
+web3 version number: 0.20.6
 
 ### Prerequisites
 
@@ -100,21 +95,12 @@ applications on Ethereum Blockchain.
     ```
 
 5. Install [Metamask](https://metamask.io/) Wallet for your browser. We will use Metamask wallet to sign
-  transactions to be executed on our deployed contract on  Testnets (Rinkeby, Ropsten) and optionally on a local blockchain.
+  transactions to be executed on our deployed contract on  Testnets (Rinkeby) and optionally on a local blockchain.
   If you already have a Metamask account, I recommend creating and using a *development* vault that
   doesn't have real Ether in yet. This way you won't accidentally lose any real money. You can always re-create/import your original wallet using the seed phrase/mnemonic of the wallet you created earlier.
+  By default there is only one account in the Metamask vault. 
 
-  Unfortunately, Metamask doesn't provide an easy way to create a second vault if you already have one.The only
-  way I know is to uninstall and reinstall Metamask. Once you have multiple vaults, switching between them
-  is relatively painless by importing the account into Metamask using its seed phrase. 
 
-  You can/should also import the accounts/vaults for your local Ganache blockchain using the seed phrase it
-  emits when the local blockchain is started.
-
-  By default there is only one account in the Metamask vault. Create at least five accounts by clicking on 
-  the *Create Account* link in the Metamask window.
-
-  ![Metamask account](images/create_metamask_account.png)
 
 6. Request some test Ether funds from https://www.rinkeby.io/#faucet or from https://faucet.metamask.io. 
    Once you have some test Ether in your
@@ -123,7 +109,7 @@ applications on Ethereum Blockchain.
 
 7. Create a free [Infura](https://infura.io) account if you don't have one already. Create a new Infura project or use an existing project. Note and copy the `PROJECT_ID`. The project id is 32 hexadecimal digits. 
 
-![infura project id](images/infura_product_key.png)
+![infura project id](images/infura_product_key.jpg)
 
 
 
@@ -195,6 +181,114 @@ In a separate terminal window, launch the DApp:
 ```
 npm run dev
 ```
+
+
+
+
+## working
+
+The DApp User Interface when running should look like...
+
+![truffle test](images/ftc_product_overview.png)
+
+![truffle test](images/ftc_farm_details.png)
+
+![truffle test](images/ftc_product_details.png)
+
+![truffle test](images/ftc_transaction_history.png)
+
+![truffle test](images/ftc_dep.png)
+
+
+
+ProcessItem
+
+blockHash: "0x39fbe8d902155db1911ed9be778fe23cf9ad6911af598ac5f37cf289f4ee461a"
+blockNumber: 9004145
+contractAddress: null
+cumulativeGasUsed: 129415
+effectiveGasPrice: "0x3b9aca08"
+from: "0x4224762d69b2e0af39deab2395ceb38d2f4c2abf"
+gasUsed: 21439
+logs: []
+logsBloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+status: "0x1"
+to: "0x9802d06b95031cd0a570fccf4930510b9be9b429"
+transactionHash: "0x3dc0b4ea9ddbb5e3eaaba2def00bfa0c8fa2ebebc8392f47303c14361f8a8666"
+transactionIndex: 3
+type: "0x0"
+
+PackItem
+receipt:
+blockHash: "0x39fbe8d902155db1911ed9be778fe23cf9ad6911af598ac5f37cf289f4ee461a"
+blockNumber: 9004145
+contractAddress: null
+cumulativeGasUsed: 5910264
+effectiveGasPrice: "0x3b9aca08"
+from: "0x4224762d69b2e0af39deab2395ceb38d2f4c2abf"
+gasUsed: 21593
+logs: []
+logsBloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+status: "0x1"
+to: "0x9802d06b95031cd0a570fccf4930510b9be9b429"
+transactionHash: "0x4f48a36bb341392e2950a5286f69800f96a8310ebe4c25537a70e07923c19975"
+transactionIndex: 26
+type: "0x0"
+
+ForSAle
+
+receipt:
+blockHash: "0xcca098cb3c0ef954684ac91e60eee1b6ea094ca0bdfa858e70a0b940c055e396"
+blockNumber: 9004160
+contractAddress: null
+cumulativeGasUsed: 4397658
+effectiveGasPrice: "0x3b9aca09"
+from: "0x4224762d69b2e0af39deab2395ceb38d2f4c2abf"
+gasUsed: 21564
+logs: []
+logsBloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+status: "0x1"
+to: "0x9802d06b95031cd0a570fccf4930510b9be9b429"
+transactionHash: "0x271192764fb6b64422983a88bc5df07914659edf884c175b6798332efa9451d5"
+transactionIndex: 3
+type: "0x0"
+
+shipItem
+receipt:
+blockHash: "0xfafe6d422efac8a7a22fdd8292dbeee4ec5d790b64a6f5c5919414f78deae341"
+blockNumber: 9004173
+contractAddress: null
+cumulativeGasUsed: 194927
+effectiveGasPrice: "0x3b9aca08"
+from: "0x4224762d69b2e0af39deab2395ceb38d2f4c2abf"
+gasUsed: 21615
+logs: []
+logsBloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+status: "0x1"
+to: "0x9802d06b95031cd0a570fccf4930510b9be9b429"
+transactionHash: "0x9a4c4948eac27005a57005a25fa58fab9e6830d71138dd460c9be0292f70d212"
+transactionIndex: 3
+type: "0x0"
+
+
+recieveItem
+
+blockHash: "0xb6bc6e7495bea759d3476a4f5ca4f8aade0794f6e38a0a76e0ff214debf03757"
+blockNumber: 9004184
+contractAddress: null
+cumulativeGasUsed: 717811
+effectiveGasPrice: "0x3b9aca09"
+from: "0x4224762d69b2e0af39deab2395ceb38d2f4c2abf"
+gasUsed: 21505
+logs: []
+logsBloom: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+status: "0x1"
+to: "0x9802d06b95031cd0a570fccf4930510b9be9b429"
+transactionHash: "0x44599301bc259ab5db1bfcaf063860caef64cefda3a7f5cc287d8c149610a5ca"
+transactionIndex: 5
+type: "0x0"
+
+
 
 ## Built With
 

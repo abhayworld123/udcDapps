@@ -145,6 +145,8 @@ contract SupplyChain {
     upc = 1;
   }
 
+ 
+
   // Define a function 'kill' if required
   function kill() public {
     if (msg.sender == owner) {
@@ -153,15 +155,36 @@ contract SupplyChain {
   }
 
   // Define a function 'harvestItem' that allows a farmer to mark an item 'Harvested'
-  function harvestItem(uint _upc, address _originFarmerID, string _originFarmName, string _originFarmInformation, string  _originFarmLatitude, string  _originFarmLongitude, string  _productNotes) public 
+  function harvestItem(uint _upc, address _originFarmerID, string _originFarmName, string _originFarmInformation, string  _originFarmLatitude, string  _originFarmLongitude, string  _productNotes) 
+
   {
     // Add the new item as part of Harvest
+     Item memory item = Item({
+        sku: sku,
+        upc: _upc,
+        ownerID: _originFarmerID,
+        originFarmerID: _originFarmerID,
+        originFarmName: _originFarmName,
+        originFarmInformation: _originFarmInformation,
+        originFarmLatitude: _originFarmLatitude,
+        originFarmLongitude: _originFarmLongitude,
+        productID: sku+_upc,
+        productNotes: _productNotes,
+        productPrice: 0,
+        itemState: defaultState,
+        distributorID: 0,
+        retailerID: 0,
+        consumerID: 0
+    });
+    items[_upc] = item;
     
     // Increment sku
     sku = sku + 1;
     // Emit the appropriate event
-    
+    emit Harvested(_upc);
   }
+
+
 
   // Define a function 'processtItem' that allows a farmer to mark an item 'Processed'
   function processItem(uint _upc) public 
