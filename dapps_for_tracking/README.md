@@ -39,7 +39,7 @@ Shows the possible states the transition from one state to another.
 
 ## Versions Used
 
-
+```
 node version number: v12.14.1
 
 Truffle version number:  v4.1.14
@@ -47,6 +47,8 @@ Truffle version number:  v4.1.14
 Solidity: v0.4.24
 
 web3 version number: 0.20.6
+
+```
 
 ### Prerequisites
 
@@ -122,18 +124,17 @@ These instructions will get you a copy of the project up and running on your loc
     ```
 
 
-
-
-Your terminal should look something like this:
-
-![truffle test](images/truffle_compile.png)
+```
+Truffle compile
+```
 
 This will create the smart contract artifacts in folder ```build\contracts```.
 
 Migrate smart contracts to the locally running blockchain, ganache-cli:
 
 ```
-truffle migrate
+truffle migrate   (for Local)
+truffel migrate --network rinkeby --reset    (for rinkeby)
 ```
 
 Your terminal should look something like this:
