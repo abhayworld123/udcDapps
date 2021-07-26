@@ -40,6 +40,8 @@ Shows the possible states the transition from one state to another.
 ## Versions Used
 
 ```
+
+contract address : 0x8fcB821C82F0531b695b7EC81AdB26364d49B053
 node version number: v12.14.1
 
 Truffle version number:  v4.1.14
@@ -140,30 +142,31 @@ truffel migrate --network rinkeby --reset    (for rinkeby)
 Your terminal should look something like this:
 
 ```
-  Deploying Migrations...
-  ... 0x0075006132d9bd7d5414c1a4116ba30db7b47928c5d003bd46b7702fd17b1a70
-  Migrations: 0x1116757c823ffa8a68acc50c0b9002ca2f370ac0
+Running migration: 1_initial_migration.js
+  Replacing Migrations...
+  ... 0x26f00785f8e4229e87cdd89f099d8ca3029d67f6666221e4e328cd389d10fe5f
+  Migrations: 0xf1921ac03cb2dc149dd1022f20d374f9344755a7
 Saving successful migration to network...
-  ... 0xc394b5f96f469b1b93b5ad60c600cd205c22db9b039346257d8cbf388a7fc88e
+  ... 0xcf19bb9f395f7bf2a2c117e86638b4d76bd7a68ec8f42795ffb312d1b483bb97
 Saving artifacts...
 Running migration: 2_deploy_contracts.js
-  Deploying FarmerRole...
-  ... 0x01b7af9f8662143269037af894eac3d4f0bb495198b48182dbb18ce1551890b6
-  FarmerRole: 0xd3f2c35f276384b9a19a831bd5aeca8ac2351c07
-  Deploying DistributorRole...
-  ... 0x467c3cbf51d05b4e63c028dc50d621fe102b4ec9ed6ee5e13c34e831318881d4
-  DistributorRole: 0xa9f5faa965a5c8be52f1de74e7334766f64f2cf6
-  Deploying RetailerRole...
-  ... 0xd9d3e3c5bb5e6a6d7123c90d4c6b45261bc87d36ca21c25b98d4af9d266cbb8b
-  RetailerRole: 0xf2eb4c09ee69742d1cee4f11a599bd0a449d66ef
-  Deploying ConsumerRole...
-  ... 0x005d3122a80bc14e8ccf74ff104ac26bdd8d5863f80de3fde00c087bcba658cd
-  ConsumerRole: 0xf785cbcae0823ca91eae6e1bb8d6ba65f8c2d069
-  Deploying SupplyChain...
-  ... 0xf1fa4c5061f892a5bbf67308e615c3660fe911b70679cb46a7b134026bf548c4
-  SupplyChain: 0x9802d06b95031cd0a570fccf4930510b9be9b429
+  Replacing FarmerRole...
+  ... 0x0272f395842a06ccb9e350be8ce0eff2b039163308ddd75c927edab527aedb8a
+  FarmerRole: 0x431f6dae1af6f6d8e8d93bad3d1def4368aa869b
+  Replacing DistributorRole...
+  ... 0xb6d148a8b13aab3390cc412435219948d12d232c81c62eb208bde89bd1b95ab4
+  DistributorRole: 0xc4a79ebc0823fd9d66246c22e6d5fbb222340a1a
+  Replacing RetailerRole...
+  ... 0x395216fedc11c28185ce6cc52afed6aa7864de3cd286c37cdbaea386adce3aa5
+  RetailerRole: 0x5473d93854192a2683bd03dbba618b1bab02cf5a
+  Replacing ConsumerRole...
+  ... 0x5654ed23a36576f0d76b9a56c39db26f766925f1c06cd8e20f68705434580c62
+  ConsumerRole: 0x2cc936c721702fb40fa4a4e63fba19642b454b5e
+  Replacing SupplyChain...
+  ... 0xda25ed77259e20cb4bf9aecd23f63f58f63f89d18edc55cf4e8c457375b3ea37
+  SupplyChain: 0x8fcb821c82f0531b695b7ec81adb26364d49b053
 Saving successful migration to network...
-  ... 0x07abd89fbdd8e0b2006337e2a5fd4d74ca885c6c49d77e747cc1746702bd990a
+  ... 0xe3113bc17ce3ed4c8d105a9abd1279bc2bc19d162aca5e47d6205a7a9283cd3b
 Saving artifacts...
 
 ```
@@ -297,15 +300,15 @@ type: "0x0"
 ## Built With
 
 * [Ethereum](https://www.ethereum.org/) - Ethereum is a decentralized platform that runs smart contracts
-* [IPFS](https://ipfs.io/) - IPFS is the Distributed Web | A peer-to-peer hypermedia protocol
-to make the web faster, safer, and more open.
+* [Infura](https://Infura.io/) 
+
 * [Truffle Framework](http://truffleframework.com/) - Truffle is the most popular development framework for Ethereum with a mission to make your life a whole lot easier.
 
 
 ## Acknowledgments
 
 * Solidity
-* Ganache-cli
+* Ganache-cli   
 * Truffle
 * Infura
-* IPFS
+
