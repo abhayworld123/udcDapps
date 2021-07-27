@@ -142,31 +142,25 @@ truffel migrate --network rinkeby --reset    (for rinkeby)
 Your terminal should look something like this:
 
 ```
-Running migration: 1_initial_migration.js
-  Replacing Migrations...
-  ... 0x26f00785f8e4229e87cdd89f099d8ca3029d67f6666221e4e328cd389d10fe5f
-  Migrations: 0xf1921ac03cb2dc149dd1022f20d374f9344755a7
-Saving successful migration to network...
-  ... 0xcf19bb9f395f7bf2a2c117e86638b4d76bd7a68ec8f42795ffb312d1b483bb97
 Saving artifacts...
 Running migration: 2_deploy_contracts.js
   Replacing FarmerRole...
-  ... 0x0272f395842a06ccb9e350be8ce0eff2b039163308ddd75c927edab527aedb8a
-  FarmerRole: 0x431f6dae1af6f6d8e8d93bad3d1def4368aa869b
+  ... 0xc4490b3ea7dd70306f858084ba044b93c5ed44ea75a6fbe0f7cf9a62c2eb9714
+  FarmerRole: 0x20fdd8cd78a1383b140f75f69af51c5be7490905
   Replacing DistributorRole...
-  ... 0xb6d148a8b13aab3390cc412435219948d12d232c81c62eb208bde89bd1b95ab4
-  DistributorRole: 0xc4a79ebc0823fd9d66246c22e6d5fbb222340a1a
+  ... 0x0ed203fa216ed05905e95687cea3f1e4843dc54e604933bba577fa778b3a4bc2
+  DistributorRole: 0x678fa3fb828175aead1fd5716121c3215739a342
   Replacing RetailerRole...
-  ... 0x395216fedc11c28185ce6cc52afed6aa7864de3cd286c37cdbaea386adce3aa5
-  RetailerRole: 0x5473d93854192a2683bd03dbba618b1bab02cf5a
+  ... 0xe3d4be1f0c49adf747f0539bc97e464f4ebd0b9b444a4d8061154f8f57d8e7c8
+  RetailerRole: 0x79013679c98017f33a14f2655ee5a66b2e78a18b
   Replacing ConsumerRole...
-  ... 0x5654ed23a36576f0d76b9a56c39db26f766925f1c06cd8e20f68705434580c62
-  ConsumerRole: 0x2cc936c721702fb40fa4a4e63fba19642b454b5e
+  ... 0x890b1cc8c37f82641b48556306a0465590c8f91aaadf2831171047c9447a973a
+  ConsumerRole: 0x003c67b78c6303fadfdf85723d722469e842131d
   Replacing SupplyChain...
-  ... 0xda25ed77259e20cb4bf9aecd23f63f58f63f89d18edc55cf4e8c457375b3ea37
-  SupplyChain: 0x8fcb821c82f0531b695b7ec81adb26364d49b053
+  ... 0x35c8622df96b9010625b051588c37ba71a2e6a8b0ee4ceffe22182c64708b5e8
+  SupplyChain: 0x8114befddfe0c3154411b92ab19e819b1ab573fb
 Saving successful migration to network...
-  ... 0xe3113bc17ce3ed4c8d105a9abd1279bc2bc19d162aca5e47d6205a7a9283cd3b
+  ... 0x50e9427bdf7e0193988e95a2b4a3e4259405f849e12cf607e4744f1966c97787
 Saving artifacts...
 
 ```

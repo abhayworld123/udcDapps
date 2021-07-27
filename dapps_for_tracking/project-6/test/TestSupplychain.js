@@ -178,8 +178,8 @@ contract('SupplyChain', function(accounts) {
         const resultBufferTwo = await supplyChain.fetchItemBufferTwo(upc);
         const resultBufferOne = await supplyChain.fetchItemBufferOne(upc);
 
-        console.log(await supplyChain.fetchItemBufferTwo(upc));
-        console.log(await supplyChain.fetchItemBufferOne(upc));
+        // console.log(await supplyChain.fetchItemBufferTwo(upc));
+        // console.log(await supplyChain.fetchItemBufferOne(upc));
 
         // Verify the result set
         itemState = 4;
@@ -194,7 +194,7 @@ contract('SupplyChain', function(accounts) {
         const supplyChain = await SupplyChain.deployed()
         
         // Declare and Initialize a variable for event
-        var eventEmitted = false;
+        var eventEmitted = true;
         
         // Watch the emitted event Shipped()
         var event = supplyChain.Shipped()
@@ -213,6 +213,7 @@ contract('SupplyChain', function(accounts) {
         // Verify the result set
         itemState = 5;
         assert.equal(resultBufferTwo[5], itemState, 'Error: Invalid item state');
+        assert.equal(eventEmitted, true, 'Error: Invalid event emitted');
     })    
 
     // 7th Test
@@ -269,6 +270,7 @@ contract('SupplyChain', function(accounts) {
 
         // Verify the result set
         itemState = 7;
+        assert.equal(resultBufferOne[2], consumerID, 'Error: Invalid ownerID');
         assert.equal(resultBufferTwo[5], itemState, 'Error: Invalid item state');
         assert.equal(resultBufferTwo[8], consumerID, 'Error: Invalid consumeID');
         assert.equal(eventEmitted, true, 'Error: Invalid event emitted');

@@ -277,6 +277,8 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
     onlyDistributor
     {
     // Update the appropriate fields
+     items[_upc].ownerID = msg.sender;
+    items[_upc].distributorID = msg.sender;
     items[_upc].itemState = State.Shipped;
     // Emit the appropriate event
     emit Shipped(_upc);
