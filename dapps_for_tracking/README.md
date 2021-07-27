@@ -179,9 +179,9 @@ truffle test
 ```
 
 
-<!-- All 10 tests should pass.
+All 10 tests should pass.
 
-![truffle test](images/truffle_test.png) -->
+![truffle test](images/truffle_test.png)
 
 In a separate terminal window, launch the DApp:
 
