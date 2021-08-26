@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity >=0.6.0 <0.8.0;
+import "./FlightSuretyData.sol";
+
 
 // It's important to avoid vulnerabilities due to numeric overflow bugs
 // OpenZeppelin's SafeMath library, when used correctly, protects agains such bugs
@@ -17,7 +19,7 @@ contract FlightSuretyApp {
     /*                                       DATA VARIABLES                                     */
     /********************************************************************************************/
 
-    // Flight status codees
+    // Flight status codes
     uint8 private constant STATUS_CODE_UNKNOWN = 0;
     uint8 private constant STATUS_CODE_ON_TIME = 10;
     uint8 private constant STATUS_CODE_LATE_AIRLINE = 20;
@@ -25,7 +27,15 @@ contract FlightSuretyApp {
     uint8 private constant STATUS_CODE_LATE_TECHNICAL = 40;
     uint8 private constant STATUS_CODE_LATE_OTHER = 50;
 
+
+    uint8 private constant REGISTERED = 20;
+      // Airlines satus codes
+    uint8 private constant UN_REGISTERED = 0; // this must be 0
+    uint8 private constant S_IN_PROCESS = 10;
+   
+
     address private contractOwner;          // Account used to deploy contract
+     uint8 private constant FUNDED = 30;
 
     struct Flight {
         bool isRegistered;
@@ -33,8 +43,33 @@ contract FlightSuretyApp {
         uint256 updatedTimestamp;        
         address airline;
     }
-    mapping(bytes32 => Flight) private flights;
 
+    mapping(bytes32 => Flight) private flights;
+    //flight operations status
+    bool private operational = true;
+
+    FlightSuretyData private flight_SuretyData;  
+
+    /////Airlines structure defined/////
+
+       struct Airline {
+        uint8 status;
+        uint256 votes;
+    }
+    // airlines Mapper
+    mapping(address => Airline) private mapAirlines;
+    // all airlines arrY
+    address[] private airlines_arr = new address[](0); 
+
+    // max number of airlines when 50% multiparty consensus required
+    uint8 private constant MAX_NO_BEFORE_CONSENSUS = 4;
+
+
+    uint256 private num_Airlines_Consensus;
+    // number of funded arilines
+
+    // mapping of airlines in the process of being registered
+    mapping(address => address[]) private inProcessAirlines;   
  
     /********************************************************************************************/
     /*                                       FUNCTION MODIFIERS                                 */
@@ -64,6 +99,22 @@ contract FlightSuretyApp {
         _;
     }
 
+      /// @dev Modifier that requires the caller to be a funded with some amount (10ETH)
+    modifier requireFundedAirline(){
+        require(mapAirlines[msg.sender].status == FUNDED, "Caller of app is not a funded airline");
+        _;
+    }
+
+    
+    /**
+    * @dev Modifier that requires the "caller" also to be registered
+    */
+       modifier requireRegisteredAirline()
+    {
+        require(mapAirlines[msg.sender].status== REGISTERED, "Caller is not registered airline");
+        _;
+    }
+
     /********************************************************************************************/
     /*                                       CONSTRUCTOR                                        */
     /********************************************************************************************/
@@ -72,43 +123,141 @@ contract FlightSuretyApp {
     * @dev Contract constructor
     *
     */
-    constructor
-                                (
-                                ) 
-                                public 
-    {
-        contractOwner = msg.sender;
-    }
 
+     constructor(address dataContractAddress, address firstAirline) public {
+        require(dataContractAddress != address(0));
+        contractOwner = msg.sender;
+        // initialize
+        flight_SuretyData = FlightSuretyData(dataContractAddress);  
+        // register first airline
+        AirlineRegistration(firstAirline);
+        // register first airline in arraylist 
+        airlines_arr.push(firstAirline);
+    }
+     /**
+    * @dev Contract fallback
+    *
+    */
+
+     fallback() external {
+    }
     /********************************************************************************************/
-    /*                                       UTILITY FUNCTIONS                                  */
+    /*                                      UTILITY FUNCTIONS                                   */
     /********************************************************************************************/
 
     function isOperational() 
                             public 
-                            pure 
+                            view 
                             returns(bool) 
     {
-        return true;  // Modify to call data contract's status
+       return operational;  // Modify to call data contract's status
+    }
+
+
+    /// @dev Sets operations status (status)
+    function setOperatingStatus(bool mode) external requireContractOwner {
+        operational = mode;
     }
 
     /********************************************************************************************/
     /*                                     SMART CONTRACT FUNCTIONS                             */
     /********************************************************************************************/
+   
 
+  
+
+
+ /**
+    * @notice Attempts to register and airline. For the first MAX_NO_BEFORE_CONSENSUS
+    * airlines this is a simple request from a funded airline. After that it becomes a multiparty
+    * consensus where a number of funded airlines at least equal to 50% of the number of registered
+    * airlines need to request the airline registration.
+    
+    * @return success a bool indicating if the airline is registered
+    * @return votes a uint256 with the number of votes
+    */
+
+
+  /// @dev Registeration of an airline
+    function AirlineRegistration(address airline)
+        private 
+        requireIsOperational  
+        returns(bool success)                         
+    {
+        
+        require(mapAirlines[airline].status == UN_REGISTERED || mapAirlines[airline].status == S_IN_PROCESS);
+        // set status airline registered
+        mapAirlines[airline].status = REGISTERED;
+        // increment number of airlines for checking Multipart consesus
+        num_Airlines_Consensus++;
+        if(inProcessAirlines[airline].length != 0)
+            delete inProcessAirlines[airline];
+        return true;
+    }
   
    /**
     * @dev Add an airline to the registration queue
     *
     */   
     function registerAirline
-                            (   
+                            (  address airline 
                             )
                             external
-                            pure
+                            requireIsOperational
+                            requireFundedAirline
                             returns(bool success, uint256 votes)
     {
-        return (success, 0);
+        // return (success, 0);
+ 
+         // first time register the airline, passed
+        if(mapAirlines[airline].status == UN_REGISTERED){
+            mapAirlines[airline] = Airline({ status: UN_REGISTERED, votes : 0 });
+            airlines_arr.push(airline);        
+        }
+
+         // decide whether to use multiparty consensus or not
+         //if number is less than limit
+        if(num_Airlines_Consensus < MAX_NO_BEFORE_CONSENSUS){            
+            success = AirlineRegistration(airline);
+            mapAirlines[airline].status = REGISTERED;
+        }
+        //For Voting process
+        else{
+            uint256 VotesStats = inProcessAirlines[airline].length;
+            if(VotesStats == 0){
+                inProcessAirlines[airline] = new address[](0);
+                inProcessAirlines[airline].push(msg.sender);
+                success = false;
+                votes = 1;
+                mapAirlines[airline].status = S_IN_PROCESS;
+                mapAirlines[airline].votes = votes;
+               }
+
+           else{
+                    // no double voting by the same airline
+                uint256 count = 0;
+                for(; count < VotesStats; count++){
+                    if(inProcessAirlines[airline][count] == msg.sender) // check double voting 
+                        break;
+                }
+                if(count == VotesStats) 
+                    inProcessAirlines[airline].push(msg.sender); // add vote
+                // update votes
+                votes = inProcessAirlines[airline].length;
+
+               
+                if(votes >= num_Airlines_Consensus/2){
+                    //Airline voted success and registering airline
+                    success = AirlineRegistration(airline);
+                    mapAirlines[airline].status = REGISTERED;
+                    mapAirlines[airline].votes  = votes;
+                }else{
+                    success = false;
+                    mapAirlines[airline].votes  = votes;
+                }
+               }
+        }
+         return (success, votes);
     }
 
 
@@ -117,13 +266,58 @@ contract FlightSuretyApp {
     *
     */  
     function registerFlight
-                                (
+                                (address airline
                                 )
                                 external
                                 pure
     {
 
     }
+
+  
+
+      /// @dev allow a registered airline to fund required
+      /// should be operational and registered  
+    function newfund()
+        external
+        payable
+        requireIsOperational    
+        requireRegisteredAirline
+    {
+        require(msg.value == 10 ether);
+        // update airline status
+        mapAirlines[msg.sender].status = FUNDED;
+
+        // forward funds to data contract
+        flight_SuretyData.fund{value:msg.value}(msg.sender);
+    }
+
+  //if funded
+    function isFundedAirline(address airline) external view returns(bool) {
+        return mapAirlines[airline].status == FUNDED;
+    }
+    // Return airlines  array
+    function getAirlines() external view returns(address[] memory) {
+        return airlines_arr;
+    }
+
+    // Return airline status
+    function getAirlineStatus(address airline) external view returns(uint8) {
+        return mapAirlines[airline].status;
+    }
+
+     // method to  check if an airline is registered (returns registered)
+    function isRegisteredAirline(address airline) external view returns(bool) {
+        return mapAirlines[airline].status == REGISTERED;
+    }
+
+    
+    // Check if an airline is in the registration process (returns inprocess)
+    function isAirlineRegistryinProcess(address airline) external view returns(bool) {
+        return  mapAirlines[airline].status == S_IN_PROCESS;
+    }
+
+   
     
    /**
     * @dev Called after oracle has updated flight status
@@ -139,6 +333,24 @@ contract FlightSuretyApp {
                                 internal
                                 pure
     {
+
+         if (statusCode == STATUS_CODE_UNKNOWN) {
+             return;
+         }
+        if (statusCode == STATUS_CODE_LATE_AIRLINE) {
+            //give some insurance 
+        }
+        if (statusCode == STATUS_CODE_LATE_WEATHER){
+           //give some insurance 
+        }
+        if (statusCode == STATUS_CODE_LATE_TECHNICAL){
+            //give some insurance 
+        }
+        if (statusCode == STATUS_CODE_LATE_OTHER){
+           //give some insurance 
+        }
+
+
     }
 
 
@@ -155,6 +367,8 @@ contract FlightSuretyApp {
 
         // Generate a unique key for storing the request
         bytes32 key = keccak256(abi.encodePacked(index, airline, flight, timestamp));
+
+
         oracleResponses[key] = ResponseInfo({
                                                 requester: msg.sender,
                                                 isOpen: true
@@ -162,12 +376,50 @@ contract FlightSuretyApp {
 
         emit OracleRequest(index, airline, flight, timestamp);
     } 
+    
+
+    //Passenger buy insuranvce
+
+        function buy(address airline, string memory flight, uint256 timestamp)
+        external
+        payable
+    {
+        // passenger to pay upto 1ether 
+        require(msg.value <= 1 ether);
+        // check that the insurance is funded
+        require(mapAirlines[airline].status == FUNDED);
+        // call buy from  data contract and send funds
+
+
+        flight_SuretyData.buy{value:msg.value}(airline, flight, timestamp, msg.sender);        
+    }
+
+
+    //call pay function from data contract 
+    function pay() external {        
+        flight_SuretyData._pay(msg.sender);
+    }
+
+    //return cretit to insurers
+    function getCredit() view external returns(uint256) {
+        return flight_SuretyData.getCredit(msg.sender);
+    }
+
+
+   // insurance get 
+    function getInsurance(address airline, string memory flight, uint256 timestamp) view external returns(uint256) {
+        return flight_SuretyData.getInsurance(msg.sender, airline, flight, timestamp);
+    }
+
+
+   
 
 
 // region ORACLE MANAGEMENT
 
     // Incremented to add pseudo-randomness at various points
-    uint8 private nonce = 0;    
+    // uint8 private nonce = 0;    
+    uint8 private nonce = 250;    
 
     // Fee to be paid when registering oracle
     uint256 public constant REGISTRATION_FEE = 1 ether;
@@ -272,10 +524,11 @@ contract FlightSuretyApp {
 
             // Handle flight status as appropriate
             processFlightStatus(airline, flight, timestamp, statusCode);
+
         }
     }
 
-
+   //return flight key generated
     function getFlightKey
                         (
                             address airline,
