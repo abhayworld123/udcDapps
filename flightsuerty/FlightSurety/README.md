@@ -10,6 +10,9 @@ This repository contains Smart Contract code in Solidity (using Truffle), tests 
 
 To install, download or clone the repo, then:
 
+You can use to run a demo environment in a saperate command window
+`ganache-cli -p 7545 -m “candy maple cake sugar pudding cream honey rich smooth crumble sweet treat” -a 40`
+
 `npm install`
 `truffle compile`
 
