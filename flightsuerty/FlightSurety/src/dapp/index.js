@@ -12,8 +12,51 @@ import './flightsurety.css';
 
         // Read transaction
         contract.isOperational((error, result) => {
+
+
+           setTimeout(() => {
+            //  alert(JSON.stringify(contract.flights));
+             let flight;
+             let el;
+             for(let i=0;i<contract.flights.length+1; i++){
+                 el = document.createElement("option");
+
+                flight = contract.flights[i];
+                //  alert(JSON.stringify(contract.flights[i]));
+                // console.log(contract.flights[0]);
+                el.text = `${flight.flight} - ${new Date((flight.timestamp))}`;
+                el.value = flight.flight;
+                console.log(JSON.stringify(el));
+                DOM.flightSelector.add(el);
+                
+                $('#flights-selector').change(()=>{
+                    let val =  $('#flights-selector').val();
+                   $('#flight-number').val(val);
+                 });  
+
+             }
+          
+
+             
+           setTimeout(() => {
+            //    let yourSelect= document.getElementById("flights-selector");
+               $('#flights-selector').change(()=>{
+                   let val =  $('#flights-selector').val();
+                   alert(2);
+                  $('#flight-number').val(val);
+                });  
+           }, 4700);
+    
+         
+               
+           }, 3500);
+           
+
             console.log(error,result);
             display('Operational Status', 'Check if contract is operational', [ { label: 'Operational Status', error: error, value: result} ]);
+           
+           
+
         });
     
 

@@ -93,7 +93,7 @@ const temp = async () => {
   if (accounts.length >= 40) {
     for (let i = 0; i < oracles_no; i++) {
       let index_or = start_no_or + i;
-    //using the method from contract to register the oracle on the blockchain. it will help the respective address to register for the oracle.
+    //using the method from contract to register the oracle on the chain. for respective address to register for the oracle.
     console.log("oracle no ", i + 1);
       await flightSuretyApp.methods.registerOracle().send({
         from: accounts[index_or],

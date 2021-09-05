@@ -55,6 +55,9 @@ export default class DOM {
         }
       });
     }
+
+    static flightSelector =  document.querySelector('#flights-selector');
+
     
     static makeElement(type, textOrPropsOrChild, ...otherChildren) {
       const el = document.createElement(type);

@@ -11,15 +11,34 @@ export default class Contract {
         this.initialize(callback);
         this.owner = null;
         this.airlines = [];
-        this.passengers = [];
+        this.passengers = [];  
+        this.flights = []; 
+        this.flightarray = ["AirIndia","British Airways","Air Asia","Malasiyan Airlines","Lufthansa"];
     }
 
     initialize(callback) {
         this.web3.eth.getAccounts((error, accts) => {
-           
             this.owner = accts[0];
 
+            // alert(JSON.stringify(accts));
+            // alert(this.flightarray.length);
+
             let counter = 1;
+            let ctr=0;
+            setTimeout(() => {
+                for(let i=0;i < this.flightarray.length;i++) {
+                    // alert(this.flightarray[i]);
+                    this.flights.push({
+                        airline: accts[i],
+                        flight: this.flightarray[i],
+                        timestamp: new Date(Date.now() - 100000)
+                    });
+    
+                // alert(JSON.stringify(this.flights));
+            }
+                
+            }, 2000);
+           
             
             while(this.airlines.length < 5) {
                 this.airlines.push(accts[counter++]);
@@ -28,6 +47,9 @@ export default class Contract {
             while(this.passengers.length < 5) {
                 this.passengers.push(accts[counter++]);
             }
+            
+           
+
 
             callback();
         });
@@ -65,7 +87,7 @@ export default class Contract {
 
     fundAirline(airlineAddress) {
         let self = this;
-        let fee = this.weiMultiple * this.fund_fee; // Web3.utils.toWei("10", "ether");
+        let fee = this.weiMultiple * this.fund_fee; // fund fee
     
         self.flightSuretyApp.methods
           .fund()
