@@ -53,4 +53,44 @@ export default class Contract {
                 callback(error, payload);
             });
     }
+
+    registerAirline(airlineAddress) {
+        let self = this;
+        self.flightSuretyApp.methods
+          .registerAirline(airlineAddress)
+          .send({ from: self.owner }, (error, result) => {
+    
+          });
+      }
+
+    fundAirline(airlineAddress) {
+        let self = this;
+        let fee = this.weiMultiple * this.fund_fee; // Web3.utils.toWei("10", "ether");
+    
+        self.flightSuretyApp.methods
+          .fund()
+          .send({ from: airlineAddress, value: fee }, (error, result) => {
+    
+          });
+    
+      }
+
+
+      submitOracleResponse(indexes, airline, flight, timestamp, callback) {
+        let self = this;
+    
+        let payload = {
+          indexes: indexes,
+          airline: self.airlines[2],
+          flight: flight,
+          timestamp: timestamp,
+          statusCode: self.STATUS_CODES[Math.floor(Math.random() * self.STATUS_CODES.length)]
+        }
+        self.flightSuretyApp.methods
+          .submitOracleResponse(payload.indexes, payload.airline, payload.flight, payload.timestamp, payload.statusCode)
+          .send({ from: self.owner }, (error, result) => {
+            callback(error, payload);
+          });
+      }
+
 }
