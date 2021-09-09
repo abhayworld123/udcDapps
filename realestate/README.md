@@ -55,7 +55,7 @@ For Zokrates
 1. Start Docker Desktop
 2. Execute following in terminal
 ```shell
-cd /Users/xeuser/Desktop/blockchain_nanodegree/projects/final-project
+cd /udcDapps/realestate
 docker run -v Your path/zokrates/code:/home/zokrates/code -ti zokrates/zokrates0.4.6 /bin/bash
 cd code/square 
 
