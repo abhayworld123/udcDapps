@@ -36,13 +36,13 @@ contract('TestERC721Mintable', accounts => {
         it('should return total supply', async function () { 
 
             let resTokens = await this.contract.totalSupply.call();
-            assert.equal(resTokens.toNumber(), 4, 'Total token supply not proper');
+            assert.equal(resTokens.toNumber(), 10, 'Total token supply not proper');
         })
 
         it('should get token balance', async function () { 
             let firstAcc_tokenBalance = await this.contract.balanceOf.call(account_one);
             let secAcc_tokenBalance = await this.contract.balanceOf.call(account_two);
-            assert.equal(firstAcc_tokenBalance.toNumber(), 3, 'Sorry balance not correct for first account');
+            assert.equal(firstAcc_tokenBalance.toNumber(), 9, 'Sorry balance not correct for first account');
             assert.equal(secAcc_tokenBalance.toNumber(), 1, 'Sorry balance not correct for second account');
         })
 
