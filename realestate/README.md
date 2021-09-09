@@ -10,6 +10,36 @@ Do npm install for installing all the dependencies
 - For tests, used ganache , then on another terminal go to  **udcDapps\realestate\eth-contracts**, then type **truffle test**.
 
 
+```
+  Contract: TestERC721Mintable
+    match erc721 spec
+      √ should return total supply (379ms)
+      √ should get token balance (645ms)
+      √ should return token uri (223ms)
+      √ should transfer token from one owner to another (1010ms)
+  Contract: TestSolnSquareVerifier
+    Can solutions be added or no
+NewSolutionIsAdded
+      √ Test if a new solution can be added for contract (529ms)
+true
+      √ Test if an ERC721 token can be minted for contract (4817ms)
+
+  Contract: TestSquareVerifier
+    Test cases Verification
+[9,1]
+one true
+      √ correct proof (3946ms)
+two false
+      √ incorrect proof (2917ms)
+
+
+  10 passing (1m)
+```
+
+
+
+
+
 
 ```
 $truffle version
