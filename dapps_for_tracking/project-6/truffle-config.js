@@ -1,4 +1,4 @@
-const mnemonic = "wrong pause random grief orphan payment price thank settle crumble museum hobby";
+const mnemonic = "rigth pausi raasndom gsrief orphaan payment price thank settle crumble museum ";
 const HDWallet = require('truffle-hdwallet-provider');
 const infuraKey = "";
 
@@ -11,7 +11,7 @@ module.exports = {
     },
     rinkeby: {
       provider: () => new HDWallet(mnemonic, `https://rinkeby.infura.io/v3/${infuraKey}`),
-        network_id: 4,       // rinkeby's id
+        network_id: 4,       // rinkebys id
         gas: 4500000,        // rinkeby has a lower block limit than mainnet
         gasPrice: 10000000000,
         networkCheckTimeout: 999999,
