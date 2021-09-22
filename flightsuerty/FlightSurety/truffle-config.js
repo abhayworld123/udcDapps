@@ -2,7 +2,7 @@
 var HDWalletProvider = require("@truffle/hdwallet-provider");
 
 var mnemonic =
-  "candy maple cake sugar pudding cream honey rich smooth crumble sweet treat";
+  "candy maple cake lick pudding creamy honey rich lolly candy sweet treat";
 
 module.exports = {
   networks: {
@@ -10,7 +10,7 @@ module.exports = {
       host: "127.0.0.1",
       port: 7545,
       websockets: true,
-      network_id: "*", // Match any network id
+      network_id: "*", // Match any network  rinkeby id
     },
   },
   compilers: {
